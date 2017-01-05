@@ -8,4 +8,4 @@ The .exe to play the game
 
 #Project
 
-The unity project
+The Unity project
