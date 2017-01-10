@@ -18,9 +18,6 @@ public class CameraManager : Singleton<CameraManager>
 	void Start()
 	{
 		movement = 0.001f;
-
-		/*//for testing
-		movement = 0.1f;*/
 	}
 
 	void FixedUpdate()
@@ -36,11 +33,12 @@ public class CameraManager : Singleton<CameraManager>
 			movement += 0.00001f;
 
 			//Check if the player is dead
-			/*if(player.transform.position.y > transform.position.y + 6.8f)
+			if(player.transform.position.y > transform.position.y + 6.8f)
 			{
 				move = false;
 				gameOver.SetActive(true);
-			}*/
+				PlayerManager.Instance.Death();
+			}
 		}
 	}
 

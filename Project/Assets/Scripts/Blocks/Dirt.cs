@@ -13,10 +13,10 @@ public class Dirt : MonoBehaviour, IBlock
 	public void Mine()
 	{
 		health--;
+		GetComponent<Animator>().Play("DirtHit");
 		if(health == 0)
 		{
-			LevelManager.Instance.DestroyBlock((int)transform.position.x, -(int)transform.position.y);
-			Destroy(gameObject);
+			LevelManager.Instance.MineBlock((int)transform.position.x, (-Mathf.RoundToInt(transform.position.y)) % 100);
 		}
 	}
 }
