@@ -89,7 +89,8 @@ public class LevelManager : Singleton<LevelManager>
 		{
 			float value = Random.value;
 
-			if(value < 0.1f)
+			//Air
+			if(value < 0.5f)
 			{
 				level[x, y] = null;
 				blocks[x, y] = null;
@@ -131,13 +132,13 @@ public class LevelManager : Singleton<LevelManager>
 	//When the player click in the screen
 	public void Click(Vector3 playerPosition, Vector3 clickPosition)
 	{
-		int[] playerPos = {(int)playerPosition.x, (-Mathf.RoundToInt(playerPosition.y)) % 100};
-		int[] clickPos = {(int)clickPosition.x, (-Mathf.RoundToInt(clickPosition.y)) % 100};
+		int[] playerPos = {(int)playerPosition.x, -(int)playerPosition.y};
+		int[] clickPos = {(int)clickPosition.x, -(int)clickPosition.y};
 
 		//If the block is accessible
-		if(accessible[clickPos[0], clickPos[1]])
+		if(accessible[clickPos[0], clickPos[1] % 100])
 		{
-			MoveAndMine(clickPos[0], clickPos[1]);
+			MoveAndMine(clickPos[0], clickPos[1] % 100);
 		}
 		else
 		{
@@ -150,9 +151,9 @@ public class LevelManager : Singleton<LevelManager>
 					for(int x = clickPos[0]; x < playerPos[0]; x++)
 						for(int y = clickPos[1] - 1; y >= playerPos[1]; y--)
 						{
-							if(accessible[x, y])
+							if(accessible[x, y % 100])
 							{
-								MoveAndMine(x, y);
+								MoveAndMine(x, y % 100);
 								return;
 							}
 						}
@@ -163,9 +164,9 @@ public class LevelManager : Singleton<LevelManager>
 					for(int x = clickPos[0]; x > playerPos[0]; x--)
 						for(int y = clickPos[1] - 1; y >= playerPos[1]; y--)
 						{
-							if(accessible[x, y])
+							if(accessible[x, y % 100])
 							{
-								MoveAndMine(x, y);
+								MoveAndMine(x, y % 100);
 								return;
 							}
 						}
@@ -175,9 +176,9 @@ public class LevelManager : Singleton<LevelManager>
 				{
 					for(int y = clickPos[1] - 1; y > playerPos[1]; y--)
 					{
-						if(accessible[playerPos[0], y])
+						if(accessible[playerPos[0], y % 100])
 						{
-							MoveAndMine(playerPos[0], y);
+							MoveAndMine(playerPos[0], y % 100);
 							return;
 						}
 					}
@@ -190,9 +191,9 @@ public class LevelManager : Singleton<LevelManager>
 				if(clickPos[0] < playerPos[0])
 				{
 					for(int x = clickPos[0]; x < playerPos[0]; x++)
-						if(accessible[x, clickPos[1]])
+						if(accessible[x, clickPos[1] % 100])
 						{
-							MoveAndMine(x, clickPos[1]);
+							MoveAndMine(x, clickPos[1] % 100);
 							return;
 						}
 				}
@@ -200,16 +201,16 @@ public class LevelManager : Singleton<LevelManager>
 				else if(clickPos[0] > playerPos[0])
 				{
 					for(int x = clickPos[0]; x > playerPos[0]; x--)
-						if(accessible[x, clickPos[1]])
+						if(accessible[x, clickPos[1] % 100])
 						{
-							MoveAndMine(x, clickPos[1]);
+							MoveAndMine(x, clickPos[1] % 100);
 							return;
 						}
 				}
 				//Clicked right over
 				else
 				{
-					MoveAndMine(clickPos[0], playerPos[1] - 1);
+					MoveAndMine(clickPos[0], playerPos[1] % 100 - 1);
 					return;
 				}
 			}
