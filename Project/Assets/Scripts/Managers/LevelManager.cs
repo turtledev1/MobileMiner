@@ -90,7 +90,7 @@ public class LevelManager : Singleton<LevelManager>
 			float value = Random.value;
 
 			//Air
-			if(value < 0.5f)
+			if(value < 0.05f)
 			{
 				level[x, y] = null;
 				blocks[x, y] = null;
@@ -253,12 +253,23 @@ public class LevelManager : Singleton<LevelManager>
 		if(blocks[x, y] == null)
 		{
 			accessible[x, y] = true;
-			if(y > maxDepth)
+			if(y < (currentDepth + 50) % 100)
 			{
-				depthIndicator.text = "" + y;
-				maxDepth = y;
+				if((y + depthMultiplicator * 100) > maxDepth)
+				{
+					depthIndicator.text = "" + (y + depthMultiplicator * 100);
+					maxDepth = y + depthMultiplicator * 100;
+				}
 			}
-				
+			else
+			{
+				if((y + (depthMultiplicator - 1) * 100) > maxDepth)
+				{
+					depthIndicator.text = "" + (y + (depthMultiplicator - 1) * 100);
+					maxDepth = y + (depthMultiplicator - 1) * 100;
+				}
+			}
+					
 			//Left
 			if(x != 0)
 			{
