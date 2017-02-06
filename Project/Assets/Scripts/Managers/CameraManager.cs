@@ -8,6 +8,7 @@ public class CameraManager : Singleton<CameraManager>
 
 	GameObject player;
 
+	public GameObject backgroundPrefab;
 	public GameObject gameOver;
 
 	void Awake()
@@ -40,6 +41,15 @@ public class CameraManager : Singleton<CameraManager>
 				PlayerManager.Instance.Death();
 			}
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		Vector3 pos = new Vector3(3, col.transform.position.y - 15, 1);
+		Instantiate(backgroundPrefab, pos, Quaternion.identity);
+		
+
+		Destroy(col.gameObject);
 	}
 
 	public void ToggleMoving(bool m)
