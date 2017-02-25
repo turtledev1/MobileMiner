@@ -5,6 +5,11 @@ using System.Collections;
 public class LevelManager : Singleton<LevelManager>
 {
 	public GameObject dirt;
+	public GameObject coal;
+	public GameObject bronze;
+	public GameObject iron;
+	public GameObject gold;
+	public GameObject diamond;
 
 	GameObject[,] level;
 	IBlock[,] blocks;
@@ -90,17 +95,52 @@ public class LevelManager : Singleton<LevelManager>
 			float value = Random.value;
 
 			//Air
-			if(value < 0.05f)
+			if(value < BlockChances.Chances[depthMultiplicator]["air"])
 			{
 				level[x, y] = null;
 				blocks[x, y] = null;
 				accessible[x, y] = false;
 			}
 			//Dirt
-			else
+			else if(value < BlockChances.Chances[depthMultiplicator]["dirt"])
 			{
 				level[x, y] = (GameObject)Instantiate(dirt, new Vector3(x, -y - (depthMultiplicator * 100), 0), Quaternion.identity);
 				blocks[x, y] = level[x, y].GetComponent<Dirt>();
+				accessible[x, y] = false;
+			}
+			//Coal
+			else if(value < BlockChances.Chances[depthMultiplicator]["coal"])
+			{
+				level[x, y] = (GameObject)Instantiate(coal, new Vector3(x, -y - (depthMultiplicator * 100), 0), Quaternion.identity);
+				blocks[x, y] = level[x, y].GetComponent<Coal>();
+				accessible[x, y] = false;
+			}
+			//Bronze
+			else if(value < BlockChances.Chances[depthMultiplicator]["bronze"])
+			{
+				level[x, y] = (GameObject)Instantiate(bronze, new Vector3(x, -y - (depthMultiplicator * 100), 0), Quaternion.identity);
+				blocks[x, y] = level[x, y].GetComponent<Bronze>();
+				accessible[x, y] = false;
+			}
+			//Iron
+			else if(value < BlockChances.Chances[depthMultiplicator]["iron"])
+			{
+				level[x, y] = (GameObject)Instantiate(iron, new Vector3(x, -y - (depthMultiplicator * 100), 0), Quaternion.identity);
+				blocks[x, y] = level[x, y].GetComponent<Iron>();
+				accessible[x, y] = false;
+			}
+			//Gold
+			else if(value < BlockChances.Chances[depthMultiplicator]["gold"])
+			{
+				level[x, y] = (GameObject)Instantiate(gold, new Vector3(x, -y - (depthMultiplicator * 100), 0), Quaternion.identity);
+				blocks[x, y] = level[x, y].GetComponent<Gold>();
+				accessible[x, y] = false;
+			}
+			//Diamond
+			else if(value < BlockChances.Chances[depthMultiplicator]["diamond"])
+			{
+				level[x, y] = (GameObject)Instantiate(gold, new Vector3(x, -y - (depthMultiplicator * 100), 0), Quaternion.identity);
+				blocks[x, y] = level[x, y].GetComponent<Diamond>();
 				accessible[x, y] = false;
 			}
 		}
@@ -132,8 +172,8 @@ public class LevelManager : Singleton<LevelManager>
 	//When the player click in the screen
 	public void Click(Vector3 playerPosition, Vector3 clickPosition)
 	{
-		int[] playerPos = {(int)playerPosition.x, -(int)playerPosition.y};
-		int[] clickPos = {(int)clickPosition.x, -(int)clickPosition.y};
+		int[] playerPos = {(int)playerPosition.x, -Mathf.RoundToInt(playerPosition.y)};
+		int[] clickPos = {(int)clickPosition.x, -Mathf.RoundToInt(clickPosition.y)};
 
 		//If the block is accessible
 		if(accessible[clickPos[0], clickPos[1] % 100])

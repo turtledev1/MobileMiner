@@ -20,6 +20,7 @@ public class PlayerManager : Singleton<PlayerManager>
 	public void Death()
 	{
 		GetComponent<Renderer>().enabled = false;
+		InventoryManager.Instance.ShowInventoryMenu();
 	}
 
 	public void MoveTo(Vector3 newPos)

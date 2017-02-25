@@ -46,8 +46,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Blocks\BlockChances.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Bronze.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Coal.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Diamond.cs" />
      <Compile Include="Assets\Scripts\Blocks\Dirt.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Gold.cs" />
      <Compile Include="Assets\Scripts\Blocks\IBlock.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Iron.cs" />
      <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
      <Compile Include="Assets\Scripts\Managers\InventoryManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
